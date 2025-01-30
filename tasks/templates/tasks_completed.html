@@ -5,21 +5,21 @@
 <main class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h1 class="text-center display-3">Tasks pending</h1>
+            <h1 class="text-center display-3">Tasks Completed</h1>
             <ul class="list-group">
                {% for task in tasks %}
                    <a href="{% url 'task_detail' task.id %}" class="list-group-item">
                        <header class="d-flex justify-content-between">
                             {% if task.important %}
-                            <h1 class="fw-bold text-danger">{{task.title}}</h1>
+                            <h1 class="fw-bold text-success">{{task.title}}</h1>
                             <label>
                                 <input type="checkbox" checked onclick="return false;"> Important!
                             </label>
                             {% else %}
-                            <h1 class="fw-bold">{{task.title}}</h1>
+                            <h1 class="fw-bold text-success">{{task.title}}</h1>
                             {% endif %}
                             <p>{{task.user.username}}</p>
-                            <form method="POST" action="{% url 'delete_task' task.id %}">
+                            <form method="POST" action="{% url 'delete_task_completed' task.id %}">
                                 {% csrf_token %}
                                 <button class="btn btn-danger">
                                     Delete
@@ -27,10 +27,7 @@
                             </form>
                        </header>
                        <p>{{task.description}}</p>
-                        {% if task.datecompleted %}
-                            <p>Completed at: {{ task.datecompleted|date:"D j M Y, H:i" }}</p>
-                        {% endif %}
-                       
+                            <p>Completed at: {{ task.datecompleted|date:"D j M Y, H:i" }}</p>                     
                    </a>
                {% endfor %}
            </ul>

@@ -4,12 +4,30 @@
 
 <main class="container">
   <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <form action="/signup/" method="POST" class="card card-body text-center">
-        <h1>signup</h1>
+    <div class="col-md-4 offset-md-4 mt-2" >
+      <form action="/signup/" method="POST" class="card card-body">
+        <h1 class="text-center">Signup</h1>
         {{error}}
-        {% csrf_token %} {{form}}
-        <button>signup</button>
+        {% csrf_token %} 
+        <div class="mb-3">
+          <label for="username">Username:</label>
+          <input type="text" name="username" class="form-control" 
+          placeholder="Write your username" id="username">
+        </div>
+
+        <div class="mb-3">
+          <label for="password1">Password:</label>
+          <input type="password" name="password1" class="form-control" 
+          placeholder="Write your pasword" id="password1">
+        </div>
+
+        <div class="mb-3">
+          <label for="password2">Confirm your Password:</label>
+          <input type="password" name="password2" class="form-control" 
+          placeholder="Confirm your password" id="password2">
+        </div>
+
+        <button class="btn btn-primary w-auto d-block mx-auto">signup</button>
       </form>
     </div>
   </div>

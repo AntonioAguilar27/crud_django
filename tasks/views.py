@@ -28,7 +28,7 @@ def signup(request):
                 )
                 user.save()
                 login(request, user)
-                return redirect(tasks)
+                return redirect(create_task)
             except:
                 return render(
                     request,
@@ -50,7 +50,7 @@ def tasks(request):
 @login_required
 def tasks_completed(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    return render(request, "tasks.html", {"tasks": tasks})
+    return render(request, "tasks_completed.html", {"tasks": tasks})
 
 @login_required
 def create_task(request):
@@ -81,7 +81,7 @@ def task_detail(request, task_id):
             task = get_object_or_404(Task, pk=task_id, user=request.user)
             form = TaskForm(request.POST, instance=task)
             form.save()
-            return redirect("tasks")
+            return redirect("tasks_completed")
         except ValueError:
             return render(
                 request,
@@ -95,7 +95,7 @@ def complete_task(request, task_id):
     if request.method == 'POST':
         task.datecompleted = timezone.now()
         task.save()
-        return redirect('tasks')
+        return redirect('tasks_completed')
 
 @login_required
 def delete_task(request, task_id):
@@ -103,6 +103,13 @@ def delete_task(request, task_id):
     if request.method == 'POST':
         task.delete()
         return redirect('tasks')
+
+@login_required
+def delete_task_completed(request, task_id):
+    task = get_object_or_404(Task, pk=task_id, user=request.user)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('tasks_completed')
 
 
 @login_required
@@ -132,4 +139,4 @@ def signin(request):
             )
         else:
             login(request, user)
-            return redirect("home")
+            return redirect("create_task")
