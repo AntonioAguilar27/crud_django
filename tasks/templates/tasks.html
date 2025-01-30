@@ -21,7 +21,7 @@
                             <p>{{task.user.username}}</p>
                             <form method="POST" action="{% url 'delete_task' task.id %}">
                                 {% csrf_token %}
-                                <button class="btn btn-danger">
+                                <button class="btn btn-danger" onclick="return confirmLogout()">
                                     Delete
                                 </button>
                             </form>
@@ -40,3 +40,10 @@
 
 
 {% endblock %}
+
+
+<script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to delete this task?");
+    }
+</script>

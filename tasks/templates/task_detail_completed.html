@@ -20,7 +20,7 @@
                         </button>
                     </form>
     
-                    <form method="POST" action="{% url 'delete_task' task.id %}">
+                    <form method="POST" action="{% url 'delete_task_completed' task.id %}">
                         {% csrf_token %}
                         <button class="btn btn-danger"onclick="return confirmLogout()">
                             Delete
