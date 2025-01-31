@@ -116,7 +116,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+import os
+from pathlib import Path
+
 STATIC_URL = 'static/'
+
+# Define el directorio donde se guardarán los archivos estáticos
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+# Directorios adicionales para archivos estáticos en la aplicación
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 LOGIN_URL = 'signin'
 
